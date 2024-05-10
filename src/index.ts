@@ -1,5 +1,7 @@
 import { findAndReplace as findAndReplaceHast } from 'hast-util-find-and-replace'
+import type { Root as MdastRoot } from 'mdast'
 import { findAndReplace as findAndReplaceMdast } from 'mdast-util-find-and-replace'
+import { Plugin } from 'unified'
 
 import dataHast from './nodes/hast.js'
 import type { DataFunction } from './nodes/index.js'
@@ -23,5 +25,6 @@ function getPlugin<Tree, FindAndReplaceTuple>(
   }
 }
 
-export const remarkAstro = () => getPlugin(findAndReplaceMdast, dataMdast)
+export const remarkAstro: Plugin<[], MdastRoot> = () =>
+  getPlugin(findAndReplaceMdast, dataMdast)
 export const rehypeAstro = () => getPlugin(findAndReplaceHast, dataHast)
